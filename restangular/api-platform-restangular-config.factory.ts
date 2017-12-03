@@ -2,9 +2,9 @@ import {UrlInfo} from "./url-info";
 import {HydraCollection} from "./hydra-collection";
 import {HydraView} from "./hydra-view";
 
-export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrl)
+export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrlString)
 {
-    let baseUrl = UrlInfo.parse(baseUrl);
+    let baseUrl = UrlInfo.parse(baseUrlString);
 
     /**
      * Make URL absolute, so Restangular can handle it properly.
@@ -18,7 +18,7 @@ export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrl
         return baseUrl.getRoot() + url;
     }
 
-    RestangularProvider.setBaseUrl(baseUrl);
+    RestangularProvider.setBaseUrl(baseUrlString);
     RestangularProvider.setSelfLinkAbsoluteUrl(true);
 
     /* Hydra collections support */

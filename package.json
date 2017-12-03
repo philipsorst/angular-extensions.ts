@@ -1,5 +1,5 @@
 {
-    "name": "ddr-angular-extensions",
+    "name": "@ddr/angular-extensions",
     "version": "0.0.1",
     "description": "Extension for Angular",
     "scripts": {
