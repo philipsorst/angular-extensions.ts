@@ -1,18 +1,21 @@
 {
-  "name": "app-platform",
-  "version": "0.0.1",
-  "description": "App Platform Integration",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/philipsorst/app-platform.ts.git"
-  },
-  "author": "Philip Washington Sorst <philip@sorst.net>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/philipsorst/app-platform.ts/issues"
-  },
-  "homepage": "https://github.com/philipsorst/app-platform.ts#readme"
+    "name": "ddr-angular-extensions",
+    "version": "0.0.1",
+    "description": "Extension for Angular",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/philipsorst/angular-extensions.ts.git"
+    },
+    "author": "Philip Washington Sorst <philip@sorst.net>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/philipsorst/angular-extensions.ts/issues"
+    },
+    "homepage": "https://github.com/philipsorst/angular-extensions.ts#readme",
+    "devDependencies": {
+        "ngx-restangular": "^2.0"
+    }
 }
