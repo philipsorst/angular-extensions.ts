@@ -4,7 +4,7 @@ import {Entity} from "./entity";
 
 export abstract class EntityService<T extends Entity>
 {
-    public list(parameters): Promise<HydraCollection<T>>
+    public list(parameters = {}): Promise<HydraCollection<T>>
     {
         return this.getEndpoint().getList(parameters).toPromise();
     }
@@ -14,9 +14,9 @@ export abstract class EntityService<T extends Entity>
         return this.getEndpoint().one(String(id)).get().toPromise();
     }
 
-    public delete(entity: T | any): Promise<null>
+    public remove(entity: T | any): Promise<null>
     {
-        return entity.delete().toPromise();
+        return entity.remove().toPromise();
     }
 
     public save(entity: T | any): Promise<T>
@@ -26,6 +26,11 @@ export abstract class EntityService<T extends Entity>
         } else {
             return this.getEndpoint().post(entity).toPromise();
         }
+    }
+
+    public clone(entity: T | any): T
+    {
+        return entity.clone(entity);
     }
 
     protected abstract getEndpoint(): Restangular;
