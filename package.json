@@ -1,5 +1,5 @@
 {
-    "name": "@ddr/angular-extensions",
+    "name": "@dontdrinkandroot/angular-extensions",
     "version": "0.0.1",
     "description": "Extension for Angular",
     "scripts": {
@@ -16,6 +16,7 @@
     },
     "homepage": "https://github.com/philipsorst/angular-extensions.ts#readme",
     "devDependencies": {
-        "ngx-restangular": "^2.0"
+        "ngx-restangular": "^2.0",
+        "typescript": "~2.4"
     }
 }
