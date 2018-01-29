@@ -1,22 +1,11 @@
 import {UrlInfo} from "./url-info";
 import {HydraCollection} from "./hydra-collection";
 import {HydraView} from "./hydra-view";
+import {ApiPlatformRestangularUtils} from "./api-platform-restangular-utils";
 
 export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrlString)
 {
-    let baseUrl = UrlInfo.parse(baseUrlString);
-
-    /**
-     * Make URL absolute, so Restangular can handle it properly.
-     */
-    function absolutizeUrl(url: string): string | null
-    {
-        if (null == url) {
-            return url;
-        }
-
-        return baseUrl.getRoot() + url;
-    }
+    let apiUrlInfo = UrlInfo.parse(baseUrlString);
 
     RestangularProvider.setBaseUrl(baseUrlString);
     RestangularProvider.setSelfLinkAbsoluteUrl(true);
@@ -24,17 +13,8 @@ export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrl
     /* Hydra collections support */
     RestangularProvider.addResponseInterceptor((data, operation) => {
 
-        /* Rewrite the href so restangular can handle it */
-        function setHref(data)
-        {
-            if (null != data && data['@id']) {
-                data['href'] = absolutizeUrl(data['@id']);
-                data['nodeUri'] = data['@id'];
-            }
-        }
-
         /* Populate href property for the collection */
-        setHref(data);
+        ApiPlatformRestangularUtils.setHref(apiUrlInfo, data);
 
         if ('getList' === operation) {
 
@@ -44,7 +24,7 @@ export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrl
 
             let hydraCollection = new HydraCollection();
             for (let result of data['hydra:member']) {
-                setHref(result);
+                ApiPlatformRestangularUtils.setHref(apiUrlInfo, result);
                 hydraCollection.push(result);
             }
 
@@ -52,10 +32,10 @@ export function ApiPlatformRestangularConfigFactory(RestangularProvider, baseUrl
             if (data.hasOwnProperty('hydra:view')) {
                 let viewData = data['hydra:view'];
                 let hydraView = new HydraView();
-                hydraView.first = absolutizeUrl(viewData['hydra:first']);
-                hydraView.next = absolutizeUrl(viewData['hydra:next']);
-                hydraView.previous = absolutizeUrl(viewData['hydra:previous']);
-                hydraView.last = absolutizeUrl(viewData['hydra:last']);
+                hydraView.first = ApiPlatformRestangularUtils.absolutizeUrl(apiUrlInfo, viewData['hydra:first']);
+                hydraView.next = ApiPlatformRestangularUtils.absolutizeUrl(apiUrlInfo, viewData['hydra:next']);
+                hydraView.previous = ApiPlatformRestangularUtils.absolutizeUrl(apiUrlInfo, viewData['hydra:previous']);
+                hydraView.last = ApiPlatformRestangularUtils.absolutizeUrl(apiUrlInfo, viewData['hydra:last']);
                 hydraCollection.view = hydraView;
             }
 
