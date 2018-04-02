@@ -10,7 +10,6 @@ export class UrlInfo
 
     public static parse(urlString: string): UrlInfo
     {
-
         let parser = document.createElement('a');
         parser.href = urlString;
 
@@ -28,7 +27,7 @@ export class UrlInfo
 
     public getRoot(): string
     {
-        let root = this.protocol + '//' + this.host;
+        let root = this.protocol + '//' + this.hostname;
         if (this.port != null && this.port !== '' && this.port !== '80') {
             root += ':' + this.port;
         }
